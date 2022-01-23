@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ExchangeRateLogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::controller(ExchangeRateLogController::class)->group(function () {
+    Route::get('/get-last-exchange-rates/{symbol}', 'getLastExchangeRates')
+        ->name('api.get_last_exchange_rates');
+
+    Route::post('/subscribe-for-notification', 'subscribeForNotification')
+        ->name('api.subscribe_for_notification');
 });
